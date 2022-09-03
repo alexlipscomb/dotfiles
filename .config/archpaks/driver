@@ -10,6 +10,7 @@ bison
 bleachbit
 brightnessctl
 btop
+cmatrix
 discord
 dmenu
 docker
@@ -43,6 +44,7 @@ i3status
 i3status-rust
 ibus
 ibus-kkc
+imagemagick
 intel-media-driver
 intel-ucode
 iwd
@@ -84,6 +86,7 @@ pipewire-jack
 pipewire-pulse
 pkgconf
 postgresql
+prettier
 pyenv
 python-black
 python-isort
@@ -95,6 +98,7 @@ screen
 scrot
 sed
 smartmontools
+stylua
 sudo
 tcl
 telegram-desktop
@@ -117,7 +121,9 @@ xf86-video-ati
 xf86-video-nouveau
 xf86-video-vmware
 xorg-server
+xorg-xev
 xorg-xinit
+xsel
 xterm
 zathura
 zathura-cb
