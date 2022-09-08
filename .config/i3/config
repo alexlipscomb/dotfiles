@@ -169,8 +169,8 @@ bindsym $mod+minus move scratchpad
 bindsym $mod+plus scratchpad show
 
 # brightness
-bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set 10%+
-bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10%-
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set 6.25%+
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 6.25%-
 
 # screenshot
 bindsym $mod+p exec scrot -q 100 -e 'mv $f ~/Media/' $normalnotif "Screenshot" "Took full screenshot"
@@ -211,3 +211,4 @@ bar {
 	font pango:Hack Nerd Font Mono 9
 	status_command i3status-rs
 }
+
