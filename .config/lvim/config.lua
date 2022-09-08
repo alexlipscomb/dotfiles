@@ -22,6 +22,8 @@ vim.opt.clipboard = "unnamedplus"
 lvim.leader = "space"
 -- add your own keymapping
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
+lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
+lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 -- unmap a default keymapping
 -- vim.keymap.del("n", "<C-Up>")
 -- override a default keymapping
@@ -88,6 +90,23 @@ lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
 
 require("lspconfig").racket_langserver.setup({})
+require("lspconfig").rust_analyzer.setup({
+	settings = {
+		["rust-analyzer"] = {
+			checkOnSave = {
+				allFeatures = true,
+				overrideCommand = {
+					"cargo",
+					"clippy",
+					"--workspace",
+					"--message-format=json",
+					"--all-targets",
+					"--all-features",
+				},
+			},
+		},
+	},
+})
 
 local formatters = require("lvim.lsp.null-ls.formatters")
 formatters.setup({
@@ -99,7 +118,7 @@ formatters.setup({
 	{
 		command = "prettier",
 		extra_args = { "--print-width", "80" },
-		filetypes = { "typescript", "typescriptreact", "html", "css", "markdown", "yaml" },
+		filetypes = { "javascript", "typescript", "typescriptreact", "html", "css", "markdown", "yaml" },
 	},
 	{ command = "sql-formatter", filetypes = { "sql" } },
 })
