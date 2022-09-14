@@ -19,6 +19,7 @@ docker
 docker-compose
 dunst
 efibootmgr
+element-desktop
 fakeroot
 feh
 file
@@ -68,6 +69,7 @@ linux-firmware
 m4
 make
 man-db
+mpv
 nano
 nautilus
 ncdu
@@ -75,7 +77,9 @@ neofetch
 neovim
 network-manager-applet
 networkmanager
+newsboat
 nilfs-utils
+nmap
 nodejs-lts-gallium
 noto-fonts-cjk
 noto-fonts-emoji
@@ -104,6 +108,7 @@ rsync
 screen
 scrot
 sed
+shellcheck
 smartmontools
 stylua
 sudo
@@ -131,8 +136,10 @@ xf86-video-vmware
 xorg-server
 xorg-xev
 xorg-xinit
+xorg-xinput
 xsel
 xterm
+yt-dlp
 zathura
 zathura-cb
 zathura-djvu
