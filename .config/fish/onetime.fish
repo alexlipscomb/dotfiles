@@ -159,3 +159,4 @@ abbr -a -- y yarn
 abbr -a -- yb 'yarn build'
 abbr -a -- dstart 'systemctl start docker.service'
 abbr -a -- dstop 'systemctl stop docker.service'
+abbr -a -- scrd 'screen -dmS'
