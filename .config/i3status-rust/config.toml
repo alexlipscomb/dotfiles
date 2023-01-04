@@ -14,7 +14,7 @@ unit = "GB"
 interval = 45
 warning = 20.0
 alert = 10.0
-format = "{icon} {path} {free}/{total}"
+format = "{icon} {path} {used} used - {free} free"
 
 [[block]]
 block = "cpu"
@@ -48,7 +48,7 @@ format = "Vol: {volume}"
 
 [[block]]
 block = "battery"
-interval = 60
+interval = 30
 format = "{percentage} {time}"
 full_format = "100%"
 
