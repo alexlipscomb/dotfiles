@@ -304,3 +304,4 @@ def main(args):
     with cached_values_for('search') as cached_values:
         handler = Search(cached_values, window_ids, error)
         loop.loop(handler)
+

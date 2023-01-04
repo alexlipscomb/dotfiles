@@ -10,3 +10,4 @@ def handle_result(args, answer, target_window_id, boss):
             w.scroll_to_mark()
 
 handle_result.no_ui = True
+
