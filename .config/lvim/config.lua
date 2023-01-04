@@ -11,12 +11,12 @@ an executable
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = true
-lvim.colorscheme = "onedarker"
+lvim.colorscheme = "tokyonight-night"
 vim.opt.relativenumber = true
 vim.opt.list = true
-vim.opt.clipboard = "unnamedplus"
--- to disable icons and use a minimalist setup, uncomment the following
--- lvim.use_icons = false
+vim.opt.termguicolors = true
+vim.opt.autoread = true
+vim.api.nvim_set_keymap("n", "gp", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", { noremap = true })
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
@@ -24,6 +24,7 @@ lvim.leader = "space"
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
+lvim.builtin.terminal.open_mapping = "<c-t>"
 -- unmap a default keymapping
 -- vim.keymap.del("n", "<C-Up>")
 -- override a default keymapping
@@ -63,10 +64,10 @@ lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
-lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
+lvim.builtin.dap.active = true
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
@@ -108,6 +109,13 @@ require("lspconfig").rust_analyzer.setup({
 	},
 })
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.offsetEncoding = "utf-16"
+require("lspconfig").clangd.setup({
+	capabilities = capabilities,
+	cmd = { "clangd" },
+})
+
 local formatters = require("lvim.lsp.null-ls.formatters")
 formatters.setup({
 	{ command = "black", filetypes = { "python" } },
@@ -120,7 +128,7 @@ formatters.setup({
 		extra_args = { "--print-width", "80" },
 		filetypes = { "javascript", "typescript", "typescriptreact", "html", "css", "markdown", "yaml" },
 	},
-	{ command = "sql-formatter", filetypes = { "sql" } },
+	{ command = "sql-formatter", filetypes = { "sql" }, extra_args = { "--language", "postgresql" } },
 })
 local linters = require("lvim.lsp.null-ls.linters")
 linters.setup({
@@ -139,21 +147,22 @@ lvim.plugins = {
 		"sindrets/diffview.nvim",
 		event = "BufRead",
 	},
-	{
-		"lukas-reineke/indent-blankline.nvim",
-		event = "BufRead",
-		setup = function()
-			vim.g.indentLine_enabled = 1
-			vim.g.indent_blankline_char = "▏"
-			vim.g.indent_blankline_filetype_exclude = { "help", "terminal", "dashboard" }
-			vim.g.indent_blankline_buftype_exclude = { "terminal" }
-			vim.g.indent_blankline_show_trailing_blankline_indent = false
-			vim.g.indent_blankline_show_first_indent_level = false
-		end,
-	},
+	-- {
+	-- 	"lukas-reineke/indent-blankline.nvim",
+	-- 	event = "BufRead",
+	-- 	setup = function()
+	-- 		vim.g.indentLine_enabled = 1
+	-- 		vim.g.indent_blankline_char = "▏"
+	-- 		vim.g.indent_blankline_filetype_exclude = { "help", "terminal", "dashboard" }
+	-- 		vim.g.indent_blankline_buftype_exclude = { "terminal" }
+	-- 		vim.g.indent_blankline_show_trailing_blankline_indent = false
+	-- 		vim.g.indent_blankline_show_first_indent_level = false
+	-- 	end,
+	-- },
 	{
 		"iamcco/markdown-preview.nvim",
 		run = "cd app && npm install",
+		cmd = "MarkdownPreview",
 		ft = "markdown",
 		config = function()
 			vim.g.mkdp_auto_start = 1
@@ -177,24 +186,6 @@ lvim.plugins = {
 		event = "BufRead",
 		config = function()
 			require("todo-comments").setup()
-		end,
-	},
-	{
-		"rmagatti/goto-preview",
-		config = function()
-			require("goto-preview").setup({
-				width = 120, -- Width of the floating window
-				height = 25, -- Height of the floating window
-				default_mappings = false, -- Bind default mappings
-				debug = false, -- Print debug information
-				opacity = nil, -- 0-100 opacity level of the floating window where 100 is fully transparent.
-				post_open_hook = nil, -- A function taking two arguments, a buffer and a window to be ran as a hook.
-				-- You can use "default_mappings = true" setup option
-				-- Or explicitly set keybindings
-				-- vim.cmd("nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<CR>")
-				-- vim.cmd("nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>")
-				-- vim.cmd("nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>")
-			})
 		end,
 	},
 	{
@@ -262,7 +253,76 @@ lvim.plugins = {
 			vim.g.gitblame_enabled = 0
 		end,
 	},
+	{
+		"tzachar/cmp-tabnine",
+		run = "./install.sh",
+		requires = "hrsh7th/nvim-cmp",
+		event = "InsertEnter",
+	},
+	{
+		"github/copilot.vim",
+	},
+	{
+		"rktjmp/lush.nvim",
+	},
+	{
+		"bluz71/vim-moonfly-colors",
+	},
+	{
+		"ggandor/leap.nvim",
+	},
+	{
+		"windwp/nvim-ts-autotag",
+	},
+	{
+		"ray-x/lsp_signature.nvim",
+		event = "BufRead",
+		config = function()
+			require("lsp_signature").on_attach()
+		end,
+	},
+	{
+		"ellisonleao/glow.nvim",
+	},
+	{
+		"rmagatti/goto-preview",
+		config = function()
+			require("goto-preview").setup({
+				width = 120, -- Width of the floating window
+				height = 25, -- Height of the floating window
+				default_mappings = false, -- Bind default mappings
+				debug = false, -- Print debug information
+				opacity = nil, -- 0-100 opacity level of the floating window where 100 is fully transparent.
+				post_open_hook = nil, -- A function taking two arguments, a buffer and a window to be ran as a hook.
+				-- You can use "default_mappings = true" setup option
+				-- Or explicitly set keybindings
+				-- vim.cmd("nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<CR>")
+				-- vim.cmd("nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>")
+				-- vim.cmd("nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>")
+			})
+		end,
+	},
 }
+
+require("nvim-treesitter.configs").setup({
+	autotag = {
+		enable = true,
+	},
+})
+
+local navic = require("nvim-navic")
+
+local on_attach = function(client, bufnr)
+	if client.server_capabilities.documentSymbolProvider then
+		navic.attach(client, bufnr)
+	end
+end
+
+require("lspconfig").pyright.setup({
+	on_attach = on_attach,
+})
+
+require("leap").add_default_mappings()
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 -- vim.api.nvim_create_autocmd("BufEnter", {
