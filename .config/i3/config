@@ -60,9 +60,10 @@ bindsym $mod+Return exec $terminal
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run
+# bindsym $mod+d exec --no-startup-id dmenu_run
+# bindsym $mod+d exec rofi -show
 # A more modern dmenu replacement is rofi:
-# bindcode $mod+40 exec "rofi -modi drun,run -show drun"
+bindsym $mod+d exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
@@ -109,10 +110,32 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-bindsym $mod+a focus parent
+bindsym $mod+y focus parent
 
 # focus the child container
-#bindsym $mod+d focus child
+bindsym $mod+p focus child
+
+# switch to next/previous active workspace
+bindsym $mod+o workspace next_on_output
+bindsym $mod+i workspace prev_on_output
+
+# move to next/previous active workspace
+bindsym $mod+Shift+o move container to workspace next_on_output
+bindsym $mod+Shift+i move container to workspace prev_on_output
+
+# switch to next previous workspace
+bindsym $mod+bracketleft  workspace prev
+bindsym $mod+bracketright workspace next
+
+# switch to next previous workspace and go there
+bindsym $mod+Shift+bracketleft  move container to workspace prev; workspace prev
+bindsym $mod+Shift+bracketright move container to workspace next; workspace next
+
+# switch to last workspace
+bindsym $mod+z workspace back_and_forth
+
+# switch to last workspace
+bindsym $mod+Shift+z move container to workspace back_and_forth
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -176,9 +199,8 @@ bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set 6.25%+
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 6.25%-
 
 # screenshot
-bindsym $mod+p exec scrot -q 100 -e 'mv $f ~/Media/' $normalnotif "Screenshot" "Took full screenshot"
-bindsym $mod+Ctrl+p exec scrot -u -q 100 -e 'mv $f ~/Media/' $normalnotif "Screenshot" "Took screenshot of focused window"
-bindsym $mod+Shift+p --release exec sleep 0.05 && scrot -s -q 100 -e 'mv $f ~/Media/' $normalnotif "Screenshot" "Took screenshot of selection"
+bindsym $mod+Shift+p exec maim -u --select "$HOME/Media/$(date --iso-8601=seconds).png" $normalnotif "Screenshot" "Took screenshot of selection"
+bindsym $mod+Ctrl+p exec maim -u "$HOME/Media/$(date --iso-8601=seconds).png" $normalnotif "Screenshot" "Took screenshot of window"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
