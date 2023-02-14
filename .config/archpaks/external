@@ -2,6 +2,8 @@ anki-official-binary-bundle
 autojump
 brutal-doom
 checkmake
+clojure-lsp-bin
+cytoscape
 drawio-desktop
 eclipse-java
 evcxr_jupyter
@@ -10,7 +12,10 @@ hadolint
 ihaskell-git
 jdk
 jdtls
+logseq-desktop-bin
+maltego
 mecab-ipadic
+mimeo
 minecraft-launcher
 nordvpn-bin
 num-utils
@@ -19,4 +24,7 @@ postman-bin
 rstudio-desktop
 snapd
 spotify
+ttf-humor-sans
 visual-studio-code-bin
+zoom
+zotero
