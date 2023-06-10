@@ -1,6 +1,34 @@
 -- bootstrap lazy.nvim, LazyVim and your plugins
 require("config.lazy")
 
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- capabilities.offsetEncoding = "utf-8"
+-- require("lspconfig").clangd.setup({
+--   capabilities = capabilities,
+--   cmd = { "clangd" },
+-- })
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.offsetEncoding = "utf-8"
+
+require("lspconfig").clangd.setup({
+  capabilities = capabilities,
+  cmd = { "clangd" },
+  on_attach = function(client, bufnr)
+    -- Set indent size for the buffer
+    local indent_size = 4
+    vim.api.nvim_buf_set_option(bufnr, "tabstop", indent_size)
+    vim.api.nvim_buf_set_option(bufnr, "shiftwidth", indent_size)
+    vim.api.nvim_buf_set_option(bufnr, "softtabstop", indent_size)
+    vim.api.nvim_buf_set_option(bufnr, "expandtab", true)
+
+    -- Enable Clangd formatting for the buffer
+    vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.buf.formatting_sync()")
+  end,
+  filetypes = { "c", "cpp", "objc", "objcpp" },
+  root_dir = require("lspconfig").util.root_pattern("compile_commands.json", "compile_flags.txt", ".git"),
+})
+
 local dap = require("dap")
 dap.adapters.python = {
   type = "executable",

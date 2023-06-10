@@ -42,11 +42,3 @@ require("lazy").setup({
     },
   },
 })
-
--- Monkey patch, not sure where else to put this
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.offsetEncoding = "utf-8"
-require("lspconfig").clangd.setup({
-  capabilities = capabilities,
-  cmd = { "clangd" },
-})

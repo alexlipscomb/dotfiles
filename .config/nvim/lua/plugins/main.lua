@@ -161,10 +161,10 @@ return {
   {
     "f-person/git-blame.nvim",
     event = "BufRead",
-    config = function()
-      vim.cmd("highlight default link gitblame SpecialComment")
-      vim.g.gitblame_enabled = 0
-    end,
+    -- config = function()
+    --   vim.cmd("highlight default link gitblame SpecialComment")
+    --   vim.g.gitblame_enabled = 0
+    -- end,
   },
   {
     "tpope/vim-surround",
@@ -176,4 +176,7 @@ return {
   },
   { "lervag/vimtex" },
   { "s1n7ax/nvim-window-picker" },
+  { "tidalcycles/vim-tidal", event = "BufReadPre" },
+  { "davidgranstrom/scnvim", event = "BufReadPre" },
+  { "sindrets/diffview.nvim", event = "BufReadPre" },
 }
