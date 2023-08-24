@@ -80,6 +80,7 @@ return {
     opts = {
       open_mapping = "<c-t>",
       direction = "float",
+      shell = "fish",
 
       execs = {
         { nil, "<M-1>", "Horizontal Terminal", "horizontal", 0.3 },
@@ -179,4 +180,12 @@ return {
   { "tidalcycles/vim-tidal", event = "BufReadPre" },
   { "davidgranstrom/scnvim", event = "BufReadPre" },
   { "sindrets/diffview.nvim", event = "BufReadPre" },
+  {
+    "iamcco/markdown-preview.nvim",
+    event = "BufEnter",
+    ft = { "md", "markdown" },
+    config = function()
+      vim.fn["mkdp#util#install"]()
+    end,
+  },
 }

@@ -1,0 +1,6 @@
+abbr -a -- :q 'exit'
+abbr -a -- c 'xclip -sel clip'
+abbr -a -- nv 'nvim'
+abbr -a -- ipy 'ipython'
+abbr -a -- cpwd 'pwd | xclip -sel clip'
+abbr -a -- battery 'cat /sys/class/power_supply/BAT0/capacity'
