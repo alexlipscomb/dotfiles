@@ -32,7 +32,7 @@ return {
     },
   },
   {
-    "jose-elias-alvarez/null-ls.nvim",
+    "nvimtools/none-ls.nvim",
     event = "BufReadPre",
     dependencies = { "mason.nvim" },
     opts = function()
@@ -90,7 +90,7 @@ return {
     },
   },
   { "RRethy/vim-illuminate" }, -- highlight same symbol elsewhere
-  { "romgrk/nvim-treesitter-context", event = "VeryLazy", opts = { enable = true } }, -- show current function
+  { "nvim-treesitter/nvim-treesitter-context", event = "VeryLazy", opts = { enable = true } }, -- show current function
   { "mfussenegger/nvim-dap" },
   { "rcarriga/nvim-dap-ui" },
   { "mfussenegger/nvim-dap-python" },
@@ -188,4 +188,5 @@ return {
       vim.fn["mkdp#util#install"]()
     end,
   },
+  { "edgedb/edgedb-vim", event = "BufReadPre" },
 }

@@ -1,58 +1,49 @@
+[theme]
 theme = "plain"
-icons = "awesome"
 
-# [[block]]
-# block = "external_ip"
-# format = "{ip} {timezone} {country_flag}"
+[icons]
+icons = "awesome6"
 
 [[block]]
 block = "disk_space"
-path = "/home"
-alias = "/home"
-info_type = "free"
-unit = "GB"
-interval = 45
-warning = 20.0
-alert = 10.0
-format = "{icon} {path} {used} used - {free} free"
+format = " DISK: $free/$total ($percentage left)"
 
-[[block]]
-block = "cpu"
-interval = 1
-format = "{barchart} {utilization} {frequency}"
-
-[[block]]
-block = "memory"
-interval = 1
-display_type = "memory"
-format_mem = "{mem_used}/{mem_total} {mem_used_percents}"
-format_swap = "{swap_used}/{swap_total} {swap_used_percents}"
-
-[[block]]
-block = "load"
-format = "1min avg: {1m}"
-warning = 5.9
-critical = 6.9
-interval = 5
-
-[[block]]
-block = "temperature"
-interval = 5
-collapsed = false
 
 [[block]]
 block = "sound"
-format = "Vol: {volume}"
+format = " VOL: {$volume|N/A} "
 
-# pacman here
+[[block]]
+block = "backlight"
+format = " DIS $brightness "
+
+[[block]]
+block = "cpu"
+interval = 5
+format = " CPU: $utilization $frequency "
+
+[[block]]
+block = "load"
+interval = 5
+format = " LOAD: 1m avg $1m "
+
+[[block]]
+block = "temperature"
+format = " TEMP: $average avg, $max max"
+
+[[block]]
+block = "memory"
+interval = 5
+format = " RAM: $mem_used/$mem_total $mem_used_percents "
+
 
 [[block]]
 block = "battery"
 interval = 30
-format = "{percentage} {time}"
+format = " BAT: $percentage $power "
 full_format = "100%"
 
 [[block]]
 block = "time"
 interval = 5
-format = "%a %m/%d %R"
+format = " $timestamp.datetime(f:'%a %m/%d %R') "
